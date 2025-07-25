@@ -1,6 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
@@ -23,5 +21,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const json = await response.json();
   const content = json.choices?.[0]?.message?.content || 'Failed to generate code.';
+
   res.status(200).json({ code: content });
 }
